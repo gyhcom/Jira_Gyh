@@ -1,11 +1,8 @@
+import { SignInCard } from '@/features/auth/components/sign-in-card'
 import React from 'react'
 
 const SignInPage = () => {
-  return (
-    <div>
-      Sign in page
-    </div>
-  )
+  return <SignInCard />
 }
 
 export default SignInPage
