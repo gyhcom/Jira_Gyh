@@ -1,13 +1,17 @@
 "use client";
 
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
+  const pathname = usePathname();
+  const isSignIn = pathname === '/sign-in'
   return (
     <main className="bg-neutral-100 min-h-screen">
       <div className="mx-auto max-w-screen-2xl p-4">
@@ -20,7 +24,12 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             height={56}
             className="w-auto h-auto max-w-[120px]"
           />
-          <Button variant="secondary">Sign Up</Button>
+          <Button asChild variant="secondary">
+            <Link href={isSignIn ? "/sign-up" : "/sign-in"}>
+            {isSignIn ? "Sign Up" : "Login"}
+            </Link>
+            
+            </Button>
         </nav>
 
         {/* 본문 */}
