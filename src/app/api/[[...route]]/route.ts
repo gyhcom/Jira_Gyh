@@ -1,15 +1,14 @@
 import { Hono } from 'hono';
 import {handle} from 'hono/vercel';
 
+import auth from "@/features/auth/server/route";
+
+
 const app = new Hono().basePath('/api')
-.get('/hello', (c) => {
-  return c.text('Hello, world!');
-})
-.get("/project/:projectId", (c) => {
-    const {projectId} = c.req.param();
-    return c.json({project: projectId });
-})
+
+const routes = app.route("/auth", auth);
+
 
 export const GET = handle(app);
-
+export type AppType = typeof routes;
 //app.get 과 .get은 동일한 기능을 합니다.
