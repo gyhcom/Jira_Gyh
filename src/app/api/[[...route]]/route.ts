@@ -10,5 +10,7 @@ const routes = app.route("/auth", auth);
 
 
 export const GET = handle(app);
+export const POST = handle(app);
+
 export type AppType = typeof routes;
 //app.get 과 .get은 동일한 기능을 합니다.

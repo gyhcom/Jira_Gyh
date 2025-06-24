@@ -25,13 +25,12 @@ import {
 } from "@/components/ui/form"
 import Link from "next/link"
 import { loginSchema } from "../schemas"
+import { useLogin } from "../api/use-login"
 
-const onSubmit = (values: z.infer<typeof loginSchema>) => {
-    // Handle form submission logic here
-    console.log({values});
-}
 
 export const SignInCard = () => {
+    const { mutate } = useLogin();
+    
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -39,6 +38,22 @@ export const SignInCard = () => {
             password: "",
         },
     });
+
+    const onSubmit = (values: z.infer<typeof loginSchema>) => {
+        // Handle form submission logic here
+        console.log("onSubmit 실행됨");
+        console.log(values);
+    
+        mutate({json: values}, {
+            onSuccess: (data) => {
+                console.log("로그인 성공", data);
+            },
+            onError: (error) => {
+                console.error("로그인 실패", error);
+            }
+        });
+    }
+    
     return (
         <Card className="w-full h-full md:w[487px] border-none shadow-none">
             <CardHeader className="flex items-center justify-center text-center p-7">
